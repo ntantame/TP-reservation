@@ -24,18 +24,7 @@ class ReservationSerializer(serializers.ModelSerializer):
         fields = ["id", "statut","salle","utilisateur","debut","fin","cree_le","motif"]
         read_only_fields = ["utilisateur"]
         # reservation dont fin n'est pas strictement postérieure a debut
-        def validate(self, data):
-            if data["fin"]<= data["debut"]:
-                raise serializers.ValidationError("la date de debut ne doit pas etre plus recent que la fin")
 
-            # une réservation qui chevauche une autre réservation CONFIRMEE de la même salle
-            reservation=Reservation.objects.filter(salle=data["salle"],statut="Confirmee",
-                                                    debut__ld=data["fin"],fin__gte=data["debut"])
-            if self.instance:
-                reservation=reservation.exclude(id=self.instance.id)
-            if reservation.exists():
-                raise serializers.ValidationError("Cette salle est deja reseree sur ce créneau")
-            return data
 
 
 
