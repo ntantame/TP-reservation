@@ -7,17 +7,19 @@ A FAIRE :
 from rest_framework import viewsets  # noqa: F401  (a utiliser)
 
 from .models import Reservation, Salle  # noqa: F401  (a utiliser)
-
+from .permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly
 # ModelViewSet pour la salle
 class SalleViewSet(viewsets.ModelViewSet):
     queryset = Salle.objects.all()
     serializer_class = SalleSerializer
+    permission_classes = [IsStaffOrReadOnly]
 
 
 # ModelViewSet pour la reservation
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     # L'utilisateur est automatiquement l'utilisateur connecte
     def perform_create(self, serializer):
