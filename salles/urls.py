@@ -12,6 +12,7 @@ from .views import ReservationViewSet, SalleViewSet
 router = DefaultRouter()
 router.register('reservations', ReservationViewSet, basename='reservations')
 router.register('salles', SalleViewSet, basename='salles')
-urlpatterns = []
+urlpatterns = [
+]
 urlpatterns += router.urls
 

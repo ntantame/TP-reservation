@@ -20,7 +20,7 @@ class SalleSerializer(serializers.ModelSerializer):
 # creation du serializer ReservationSerializer
 class ReservationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = ["id", "statut","salle","utilisateur","debut","fin","cree_le","motif"]
         read_only_fields = ["utilisateur"]
         # reservation dont fin n'est pas strictement postérieure a debut
